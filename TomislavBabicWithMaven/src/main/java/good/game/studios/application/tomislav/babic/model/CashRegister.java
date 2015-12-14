@@ -1,12 +1,16 @@
 package good.game.studios.application.tomislav.babic.model;
 
-import good.game.studios.application.tomislav.babic.util.SimpleLogger;
 
+import good.game.studios.application.tomislav.babic.util.Constants;
+
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
+
+import org.apache.log4j.Logger;
 
 
 /**
@@ -18,6 +22,8 @@ import java.util.Queue;
  */
 public class CashRegister extends CoffeeShopQueueProcessor<Programmer>  {
 	
+	private static final Logger logger = Logger.getLogger(Constants.LOGGER_NAME);
+	
 	private List<Receipt> receipts = new ArrayList<Receipt>();
 	
 	public CashRegister(Queue<Programmer> queue, CoffeeShop coffeeShop) {
@@ -26,8 +32,8 @@ public class CashRegister extends CoffeeShopQueueProcessor<Programmer>  {
 	
 	protected void processCustomer(Programmer programmer) throws InterruptedException  {
 		PaymentType paymentType = programmer.choosePaymentType(Arrays.asList(PaymentType.values()));
-		SimpleLogger.debug("Cash register {0} processing programmer {1} with payment type {2}", 
-				getId(), programmer.getId(), paymentType);
+		logger.debug(MessageFormat.format("Cash register {0} processing programmer {1} with payment type {2}", 
+				getId(), programmer.getId(), paymentType));
 		receipts.add(new Receipt(this, programmer.getChosenCoffee(), paymentType));
 		coffeeShop.moveToCoffeeMachine(programmer);
 	}

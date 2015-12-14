@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd" [
+	<!ENTITY minLevel "DEBUG">
+	<!ENTITY fileLevel "DEBUG">
+]>
+
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+    <appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern"
+                value="%d{yy-MMM-dd HH:mm:ss,SSS} [%t] %c %x %-5p %m%n"/>
+        </layout>
+    </appender>
+    
+    <appender name="VIEW" class="org.apache.log4j.ConsoleAppender">
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern"
+                value="%m%n"/>
+        </layout>
+    </appender>
+    
+    <appender name="FILE" class="org.apache.log4j.FileAppender">
+		<param name="File" value="./log/results.log" />
+		<param name="Threshold" value="&minLevel;" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%m%n" />
+		</layout>
+	</appender>
+		
+	
+	
+    <logger name="CoffeeShopLogger">
+		<level value="&minLevel;" />
+		<appender-ref ref="CONSOLE" />
+    </logger>
+    
+    <logger name="ViewLogger">
+		<level value="&minLevel;" />
+		<appender-ref ref="VIEW" />
+		<appender-ref ref="FILE" />
+    </logger>
+
+  
+	
+</log4j:configuration>

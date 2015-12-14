@@ -1,13 +1,17 @@
 package good.game.studios.application.tomislav.babic.model;
 
+import good.game.studios.application.tomislav.babic.util.Constants;
 import good.game.studios.application.tomislav.babic.util.Identifier;
-import good.game.studios.application.tomislav.babic.util.SimpleLogger;
-
+import java.text.MessageFormat;
 import java.util.List;
 import java.util.Random;
 
+import org.apache.log4j.Logger;
+
 public class Programmer extends Identifier {
 
+	private static final Logger logger = Logger.getLogger(Constants.LOGGER_NAME);
+	
 	private static final int CHOOSE_COFFEE_TYPE = 500;
 	private static final int FIND_CUP = 250;
 	private static final int PLACE_CUP = 250;
@@ -27,7 +31,7 @@ public class Programmer extends Identifier {
 	 */
 	public void enters(CoffeeShop coffeeShop) {
 		timeToGetCoffee = System.currentTimeMillis();
-		SimpleLogger.debug("{0} wants coffee", toString());
+		logger.debug(MessageFormat.format("{0} wants coffee", toString()));
 		coffeeShop.getInLine(this);
 
 	}

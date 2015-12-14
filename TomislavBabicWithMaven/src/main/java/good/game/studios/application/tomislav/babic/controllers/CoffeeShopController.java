@@ -2,7 +2,7 @@ package good.game.studios.application.tomislav.babic.controllers;
 
 import good.game.studios.application.tomislav.babic.model.CoffeeShop;
 import good.game.studios.application.tomislav.babic.model.Programmer;
-import good.game.studios.application.tomislav.babic.util.SimpleLogger;
+import good.game.studios.application.tomislav.babic.util.Constants;
 import good.game.studios.application.tomislav.babic.views.Question1;
 import good.game.studios.application.tomislav.babic.views.Question2;
 import good.game.studios.application.tomislav.babic.views.Question3;
@@ -11,8 +11,11 @@ import good.game.studios.application.tomislav.babic.views.Question4;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 public class CoffeeShopController {
 	
+	private static final Logger logger = Logger.getLogger(Constants.LOGGER_NAME);
 	
 	public void processMultipleDays(List<Integer> numberOfCustomersPerDay) {
 		CoffeeShop coffeeShop = new CoffeeShop();
@@ -37,7 +40,7 @@ public class CoffeeShopController {
 			programmer.enters(coffeeShop);
 		}
 		coffeeShop.waitForClosing();
-		SimpleLogger.debug("Done!!!!!!!!!!!!!!!!!!!!!!");
+		logger.debug("Done!!!!!!!!!!!!!!!!!!!!!!");
 		showViews(coffeeShop, programmers);
 						
 	}

@@ -1,7 +1,6 @@
 package good.game.studios.application.tomislav.babic.model;
 
 import java.util.List;
-import java.util.Map;
 
 import good.game.studios.application.tomislav.babic.util.Identifier;
 

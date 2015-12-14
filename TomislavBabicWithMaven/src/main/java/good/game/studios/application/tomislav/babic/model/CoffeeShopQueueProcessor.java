@@ -1,9 +1,12 @@
 package good.game.studios.application.tomislav.babic.model;
 
+import good.game.studios.application.tomislav.babic.util.Constants;
 import good.game.studios.application.tomislav.babic.util.Identifier;
-import good.game.studios.application.tomislav.babic.util.SimpleLogger;
 
+import java.text.MessageFormat;
 import java.util.Queue;
+
+import org.apache.log4j.Logger;
 
 
 /**
@@ -15,6 +18,8 @@ import java.util.Queue;
  */
 public abstract class CoffeeShopQueueProcessor<T> extends Identifier implements Runnable{
 
+	private static final Logger logger = Logger.getLogger(Constants.LOGGER_NAME);
+	
 	private Queue<T> queue;
 	private int processedProgrammers = 0;
 	private boolean open = false;
@@ -49,7 +54,7 @@ public abstract class CoffeeShopQueueProcessor<T> extends Identifier implements 
 		try {
 			processCustomer(object);
 		} catch (InterruptedException e) {
-			SimpleLogger.error("{0} couldn't process {1} so return him back to the end of the queue", this, object);
+			logger.error(MessageFormat.format("{0} couldn't process {1} so return him back to the end of the queue", this, object));
 			synchronized(queue) {
 				queue.add(object);
 			}
@@ -66,7 +71,7 @@ public abstract class CoffeeShopQueueProcessor<T> extends Identifier implements 
 				try {
 					queue.wait();
 				} catch (InterruptedException e) {
-					SimpleLogger.error("{0} broke down", this);
+					logger.error(MessageFormat.format("{0} broke down", this));
 					open = false;
 					return null; //exit from thread
 				}
