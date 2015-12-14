@@ -15,15 +15,14 @@ import java.util.Queue;
 public class CoffeeTypeTerminal extends CoffeeShopQueueProcessor<Programmer> implements Runnable {
 
 
-	public CoffeeTypeTerminal(Queue<Programmer> queue) {
-		super(queue);
+	public CoffeeTypeTerminal(Queue<Programmer> queue, CoffeeShop coffeeShop) {
+		super(queue, coffeeShop);
 	}
 	
 	protected void processCustomer(Programmer programmer) throws InterruptedException  {
-		CoffeeType coffeeType = programmer.chooseCoffeeType(Arrays.asList(CoffeeType.values()));
-		SimpleLogger.debug("Programmer {0} chose {1} on terminal {2}", programmer.getId(), coffeeType, getId());
-		CoffeeShop.moveToCashRegister(programmer, coffeeType);
-		
+		programmer.chooseCoffeeType(Arrays.asList(CoffeeType.values()));
+		SimpleLogger.debug("Programmer {0} chose {1} on terminal {2}", programmer.getId(), programmer.getChosenCoffee(), getId());
+		coffeeShop.moveToCashRegister(programmer);
 	}
 
 }

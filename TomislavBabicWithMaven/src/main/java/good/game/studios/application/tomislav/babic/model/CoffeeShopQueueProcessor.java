@@ -20,9 +20,10 @@ public abstract class CoffeeShopQueueProcessor<T> extends Identifier implements 
 	private boolean open = false;
 	protected CoffeeShop coffeeShop;
 	
-	public CoffeeShopQueueProcessor(Queue<T> queue) {
+	public CoffeeShopQueueProcessor(Queue<T> queue, CoffeeShop coffeeShop) {
 		super();
 		this.queue = queue;
+		this.coffeeShop = coffeeShop;
 	}
 	
 	@Override

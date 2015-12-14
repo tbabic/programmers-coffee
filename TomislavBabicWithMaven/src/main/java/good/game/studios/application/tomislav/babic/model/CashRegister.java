@@ -2,8 +2,9 @@ package good.game.studios.application.tomislav.babic.model;
 
 import good.game.studios.application.tomislav.babic.util.SimpleLogger;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 
@@ -15,33 +16,50 @@ import java.util.Queue;
  * @author Tomislav Babic
  *
  */
-public class CashRegister extends CoffeeShopQueueProcessor<Order>  {
+public class CashRegister extends CoffeeShopQueueProcessor<Programmer>  {
 	
-	private Map<PaymentType, Integer> coffeeSoldByType = new HashMap<PaymentType, Integer>();
+	private List<Receipt> receipts = new ArrayList<Receipt>();
 	
-	public CashRegister(Queue<Order> queue) {
-		super(queue);
+	public CashRegister(Queue<Programmer> queue, CoffeeShop coffeeShop) {
+		super(queue, coffeeShop);
 	}
 	
-	protected void processCustomer(Order order) throws InterruptedException  {
-		PaymentType paymentType = order.getProgrammer().choosePaymentType(Arrays.asList(PaymentType.values()));
+	protected void processCustomer(Programmer programmer) throws InterruptedException  {
+		PaymentType paymentType = programmer.choosePaymentType(Arrays.asList(PaymentType.values()));
 		SimpleLogger.debug("Cash register {0} processing programmer {1} with payment type {2}", 
-				getId(), order.getProgrammer().getId(), paymentType);
-		processStatistics(paymentType);
-		CoffeeShop.moveToCoffeeMachine(order);
+				getId(), programmer.getId(), paymentType);
+		receipts.add(new Receipt(this, programmer.getChosenCoffee(), paymentType));
+		coffeeShop.moveToCoffeeMachine(programmer);
 	}
 
-	public int getCoffeeSoldByType(PaymentType type) {
-		int currentNumber = 0;
-		if (coffeeSoldByType.containsKey(type)) {
-			currentNumber = coffeeSoldByType.get(type);
-		}
-		return currentNumber;
+	public int getCoffeeSoldByType(PaymentType paymentType) {
+		return Receipt.getReceiptsByPaymentType(paymentType, receipts);
 	}
 	
-	private void processStatistics(PaymentType type) {
-		int currentNumber = getCoffeeSoldByType(type);
-		coffeeSoldByType.put(type, currentNumber+1);
+	public int getAllCoffeeSold() {
+		return receipts.size();
+	}
+	
+	public List<Receipt> getReceipts() {
+		return this.receipts;
+	}
+	
+	public static int getAllCoffeeSold(List<CashRegister> cashRegisters) {
+		int sum = 0;
+		for (CashRegister cashRegister : cashRegisters) {
+			sum += cashRegister.getAllCoffeeSold();
+		}
+		return sum;
+	}
+	
+	public static int getCoffeeSoldByType(
+			PaymentType paymentType, List<CashRegister> cashRegisters) {
+		int sum = 0;
+		List<Receipt> allReceipts = new ArrayList<Receipt>();
+		for (CashRegister cashRegister : cashRegisters) {
+			sum+= cashRegister.getCoffeeSoldByType(paymentType);
+		}
+		return sum;
 	}
 	
 }

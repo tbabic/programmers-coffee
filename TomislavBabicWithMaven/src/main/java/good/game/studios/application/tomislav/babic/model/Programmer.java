@@ -13,16 +13,22 @@ public class Programmer extends Identifier {
 	private static final int PLACE_CUP = 250;
 	private static final int LEAVE = 250;
 	
+	private CoffeeType chosenCoffee = null;
 	public long timeToGetCoffee = 0;
 	
 	public Programmer() {
 		super();
 	}
 	
-	public void wantsCoffee() {
+	
+	/**
+	 * Programmer enters into the coffee shop
+	 * @param coffeeShop
+	 */
+	public void enters(CoffeeShop coffeeShop) {
 		timeToGetCoffee = System.currentTimeMillis();
 		SimpleLogger.debug("{0} wants coffee", toString());
-		CoffeeShop.getInLine(this);
+		coffeeShop.getInLine(this);
 
 	}
 	
@@ -38,22 +44,26 @@ public class Programmer extends Identifier {
 		return paymentTypes.get(index);		
 	}
 
-	public CoffeeType chooseCoffeeType(List<CoffeeType> coffeeTypes) throws InterruptedException {
+	public void chooseCoffeeType(List<CoffeeType> coffeeTypes) throws InterruptedException {
 		Random rn = new Random();
 		int index = rn.nextInt(coffeeTypes.size());
 		Thread.sleep(CHOOSE_COFFEE_TYPE);
-		return coffeeTypes.get(index);		
+		chosenCoffee = coffeeTypes.get(index);
 	}
 	
-	public void getCoffeeFromMachine(CoffeeType coffeeType) throws InterruptedException {
+	public void getCoffeeFromMachine() throws InterruptedException {
 		Thread.sleep( FIND_CUP + PLACE_CUP +
-				coffeeType.getProcessingTime());
+				chosenCoffee.getProcessingTime());
 		timeToGetCoffee=System.currentTimeMillis()-timeToGetCoffee;
 		Thread.sleep(LEAVE);
 	}
 	
 	public double getTimeToGetCoffeeInSeconds() {
 		return ((double) timeToGetCoffee)/1000.0;
+	}
+
+	public CoffeeType getChosenCoffee() {
+		return chosenCoffee;
 	}
 
 }

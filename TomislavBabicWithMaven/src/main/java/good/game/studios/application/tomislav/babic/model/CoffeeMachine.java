@@ -2,8 +2,8 @@ package good.game.studios.application.tomislav.babic.model;
 
 import good.game.studios.application.tomislav.babic.util.SimpleLogger;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Queue;
 
 /**
@@ -13,34 +13,36 @@ import java.util.Queue;
  * @author Tomislav Babic
  *
  */
-public class CoffeeMachine extends CoffeeShopQueueProcessor<Order> {
+public class CoffeeMachine extends CoffeeShopQueueProcessor<Programmer> {
 
-	private Map<CoffeeType, Integer> coffeeSoldByType = new HashMap<CoffeeType, Integer>();
+	private List<CoffeeMachineOrder> orders = new ArrayList<CoffeeMachineOrder>();
 	
-	public CoffeeMachine(Queue<Order> queue) {
-		super(queue);
+	public CoffeeMachine(Queue<Programmer> queue, CoffeeShop coffeeShop) {
+		super(queue, coffeeShop);
 	}
 	
 	@Override
-	protected void processCustomer(Order order) throws InterruptedException {
-		Programmer programmer = order.getProgrammer();
-		SimpleLogger.debug("Programmer {0} pours {1} on machine {2}", programmer.getId(), order.getCoffeeType(), getId());
-		processStatistics(order.getCoffeeType());
-		programmer.getCoffeeFromMachine(order.getCoffeeType());
-		CoffeeShop.leave(programmer);
+	protected void processCustomer(Programmer programmer) throws InterruptedException {
+		SimpleLogger.debug("Programmer {0} pours {1} on machine {2}", programmer.getId(), programmer.getChosenCoffee(), getId());
+		if(programmer.getChosenCoffee() != null) {
+			orders.add(new CoffeeMachineOrder(this, programmer.getChosenCoffee()));
+			programmer.getCoffeeFromMachine();
+		}
+		coffeeShop.leave(programmer);
 	}
 	
 	public int getCoffeeDispensedByType(CoffeeType type) {
-		int currentNumber = 0;
-		if (coffeeSoldByType.containsKey(type)) {
-			currentNumber = coffeeSoldByType.get(type);
+		int n = 0;
+		for (CoffeeMachineOrder order : orders) {
+			if (order.getCoffeeType() == type) {
+				n++;
+			}
 		}
-		return currentNumber;
+		return n;
 	}
 	
-	private void processStatistics(CoffeeType type) {
-		int currentNumber = getCoffeeDispensedByType(type);
-		coffeeSoldByType.put(type, currentNumber+1);
+	public int getAllCoffeesDispensed() {
+		return orders.size();
 	}
 	
 	
