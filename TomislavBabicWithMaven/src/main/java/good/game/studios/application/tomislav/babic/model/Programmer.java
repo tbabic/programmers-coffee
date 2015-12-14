@@ -2,6 +2,7 @@ package good.game.studios.application.tomislav.babic.model;
 
 import good.game.studios.application.tomislav.babic.util.Constants;
 import good.game.studios.application.tomislav.babic.util.Identifier;
+
 import java.text.MessageFormat;
 import java.util.List;
 import java.util.Random;

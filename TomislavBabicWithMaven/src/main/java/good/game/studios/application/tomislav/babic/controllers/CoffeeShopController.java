@@ -18,16 +18,19 @@ public class CoffeeShopController {
 	private static final Logger logger = Logger.getLogger(Constants.LOGGER_NAME);
 	
 	public void processMultipleDays(List<Integer> numberOfCustomersPerDay) {
-		CoffeeShop coffeeShop = new CoffeeShop();
+		CoffeeShop coffeeShop = new CoffeeShop(Constants.COFFEE_TYPE_TERMINALS, Constants.CASH_REGISTERS, Constants.COFFEE_MACHINES);
+		
 		for (int numberOfCustomers : numberOfCustomersPerDay) {
 			processSingleDay(coffeeShop, numberOfCustomers);
-			coffeeShop.newDay();
+			
+			coffeeShop.newDay(Constants.COFFEE_TYPE_TERMINALS, Constants.CASH_REGISTERS, Constants.COFFEE_MACHINES);
 		}
 		
 	}
 	
 	public void processOnlyOneDay(int numberOfCustomers) {
-		CoffeeShop coffeeShop = new CoffeeShop();
+		CoffeeShop coffeeShop = new CoffeeShop(Constants.COFFEE_TYPE_TERMINALS, Constants.CASH_REGISTERS, Constants.COFFEE_MACHINES);
+		
 		processSingleDay(coffeeShop, numberOfCustomers);
 						
 	}

@@ -17,10 +17,6 @@ import java.util.Queue;
  */
 public class CoffeeShop extends Identifier {
 
-	private static final int NUMBER_OF_CASH_REGISTERS = 5;	
-	private static final int NUMBER_OF_COFFEE_TYPE_TERMINALS = 10;
-	private static final int NUMBER_OF_COFFEE_MACHINES = 2;
-	
 	private Queue<Programmer> typeQueue = new LinkedList<Programmer>();	
 	private Queue<Programmer> cashRegisterQueue = new LinkedList<Programmer>();	
 	private Queue<Programmer> machineQueue = new LinkedList<Programmer>();
@@ -31,8 +27,8 @@ public class CoffeeShop extends Identifier {
 	
 	private List<Programmer> programmers;
 	
-	public CoffeeShop() {
-		newDay();
+	public CoffeeShop(int numberOfCoffeeTypeTerminals, int numberOfCashRegisters, int numberOfCoffeeMachines) {
+		newDay(numberOfCoffeeTypeTerminals, numberOfCashRegisters, numberOfCoffeeMachines);
 	}
 	
 	/**
@@ -123,13 +119,13 @@ public class CoffeeShop extends Identifier {
 	/**
 	 *  this method resets all queues, queue processors and list of customers to initial setting
 	 */
-	public void newDay() {
+	public void newDay(int numberOfCoffeeTypeTerminals, int numberOfCashRegisters, int numberOfCoffeeMachines) {
 		typeQueue.clear();
 		cashRegisterQueue.clear();
 		machineQueue.clear();
-		cashRegisters = getNewList(CashRegister.class, NUMBER_OF_CASH_REGISTERS, cashRegisterQueue);	
-		coffeeMachine = getNewList(CoffeeMachine.class, NUMBER_OF_COFFEE_MACHINES, machineQueue);	
-		coffeeTypeTerminals = getNewList(CoffeeTypeTerminal.class, NUMBER_OF_COFFEE_TYPE_TERMINALS, typeQueue);
+		cashRegisters = getNewList(CashRegister.class, numberOfCashRegisters, cashRegisterQueue);	
+		coffeeMachine = getNewList(CoffeeMachine.class, numberOfCoffeeMachines, machineQueue);	
+		coffeeTypeTerminals = getNewList(CoffeeTypeTerminal.class, numberOfCoffeeTypeTerminals, typeQueue);
 		if (programmers != null) {
 			programmers.clear();
 		}
