@@ -54,9 +54,11 @@ public class CoffeeShop extends Identifier {
 	 * @param programmer
 	 * 
 	 */
-	public synchronized void getInLine(Programmer programmer) {
+	public void getInLine(Programmer programmer) {
+		synchronized(typeQueue) {
 			typeQueue.add(programmer);
-			typeQueue.notify();	
+			typeQueue.notify();
+		}
 	}
 	
 	/**
@@ -65,9 +67,11 @@ public class CoffeeShop extends Identifier {
 	 * @param programmer
 	 * @param coffeeType
 	 */
-	public synchronized void moveToCashRegister(Programmer programmer) {
+	public void moveToCashRegister(Programmer programmer) {
+		synchronized(cashRegisterQueue) {
 			cashRegisterQueue.add(programmer);
 			cashRegisterQueue.notify();
+		}
 	}
 
 	
@@ -76,9 +80,11 @@ public class CoffeeShop extends Identifier {
 	 * 
 	 * @param order
 	 */
-	public synchronized void moveToCoffeeMachine(Programmer programmer) {
+	public void moveToCoffeeMachine(Programmer programmer) {
+		synchronized(machineQueue) {
 			machineQueue.add(programmer);
 			machineQueue.notify();
+		}
 	}
 	
 	/**
@@ -87,7 +93,7 @@ public class CoffeeShop extends Identifier {
 	 * 
 	 * @param programmer
 	 */
-	public synchronized void leave(Programmer programmer) {
+	public void leave(Programmer programmer) {
 			synchronized(programmers) {
 				programmers.remove(programmer);
 				programmers.notify();
