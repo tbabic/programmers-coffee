@@ -7,7 +7,6 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.Queue;
 
 import org.apache.log4j.Logger;
@@ -61,7 +60,6 @@ public class CashRegister extends CoffeeShopQueueProcessor<Programmer>  {
 	public static int getCoffeeSoldByType(
 			PaymentType paymentType, List<CashRegister> cashRegisters) {
 		int sum = 0;
-		List<Receipt> allReceipts = new ArrayList<Receipt>();
 		for (CashRegister cashRegister : cashRegisters) {
 			sum+= cashRegister.getCoffeeSoldByType(paymentType);
 		}
