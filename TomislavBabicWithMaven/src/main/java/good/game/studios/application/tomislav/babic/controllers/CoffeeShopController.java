@@ -3,6 +3,7 @@ package good.game.studios.application.tomislav.babic.controllers;
 import good.game.studios.application.tomislav.babic.model.CoffeeShop;
 import good.game.studios.application.tomislav.babic.model.Programmer;
 import good.game.studios.application.tomislav.babic.util.Constants;
+import good.game.studios.application.tomislav.babic.util.IdGenerator;
 import good.game.studios.application.tomislav.babic.views.Question1;
 import good.game.studios.application.tomislav.babic.views.Question2;
 import good.game.studios.application.tomislav.babic.views.Question3;
@@ -36,7 +37,7 @@ public class CoffeeShopController {
 	}
 	
 	private void processSingleDay(CoffeeShop coffeeShop, int numberOfCustomers) {
-		
+		IdGenerator.reset();
 		List<Programmer> programmers = getCustomers(numberOfCustomers);
 		coffeeShop.openUp(programmers);
 		for (Programmer programmer : programmers) {

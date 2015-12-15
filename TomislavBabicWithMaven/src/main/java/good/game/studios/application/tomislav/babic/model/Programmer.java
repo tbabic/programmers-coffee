@@ -1,7 +1,6 @@
 package good.game.studios.application.tomislav.babic.model;
 
 import good.game.studios.application.tomislav.babic.util.Constants;
-import good.game.studios.application.tomislav.babic.util.Identifier;
 
 import java.text.MessageFormat;
 import java.util.List;
@@ -9,13 +8,14 @@ import java.util.Random;
 
 import org.apache.log4j.Logger;
 
-public class Programmer extends Identifier {
+public class Programmer extends BaseModel {
 
 	private static final Logger logger = Logger.getLogger(Constants.LOGGER_NAME);
 	
 	private static final int CHOOSE_COFFEE_TYPE = 500;
 	private static final int FIND_CUP = 250;
 	private static final int PLACE_CUP = 250;
+	private static final int PICK_COFFEE_TYPE = 250;
 	private static final int LEAVE = 250;
 	
 	private CoffeeType chosenCoffee = null;
@@ -57,7 +57,7 @@ public class Programmer extends Identifier {
 	}
 	
 	public void getCoffeeFromMachine() throws InterruptedException {
-		Thread.sleep( FIND_CUP + PLACE_CUP +
+		Thread.sleep( FIND_CUP + PLACE_CUP + PICK_COFFEE_TYPE,
 				chosenCoffee.getProcessingTime());
 		timeToGetCoffee=System.currentTimeMillis()-timeToGetCoffee;
 		Thread.sleep(LEAVE);

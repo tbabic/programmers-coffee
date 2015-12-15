@@ -1,6 +1,5 @@
 package good.game.studios.application.tomislav.babic.model;
 
-import good.game.studios.application.tomislav.babic.util.Identifier;
 
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
@@ -15,7 +14,7 @@ import java.util.Queue;
  * @author Tomislav Babic
  *
  */
-public class CoffeeShop extends Identifier {
+public class CoffeeShop extends BaseModel {
 
 	private Queue<Programmer> typeQueue = new LinkedList<Programmer>();	
 	private Queue<Programmer> cashRegisterQueue = new LinkedList<Programmer>();	

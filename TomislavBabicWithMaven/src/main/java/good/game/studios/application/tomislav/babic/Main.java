@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class Main {
 
-	private static final List<Integer> NUMBER_OF_PROGRAMMERS = Arrays.asList(10, 20, 50);
+	private static final List<Integer> NUMBER_OF_PROGRAMMERS = Arrays.asList(100, 200, 500, 1000);
 	private static CoffeeShopController coffeeShopController = new CoffeeShopController();
 	
 	/**

@@ -1,8 +1,7 @@
 package good.game.studios.application.tomislav.babic.model;
 
-import good.game.studios.application.tomislav.babic.util.Identifier;
 
-public class CoffeeMachineOrder extends Identifier {
+public class CoffeeMachineOrder extends BaseModel {
 
 	private CoffeeMachine coffeeMachine;
 	private CoffeeType coffeeType;

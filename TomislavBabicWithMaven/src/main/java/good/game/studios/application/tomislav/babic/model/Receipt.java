@@ -2,9 +2,8 @@ package good.game.studios.application.tomislav.babic.model;
 
 import java.util.List;
 
-import good.game.studios.application.tomislav.babic.util.Identifier;
 
-public class Receipt extends Identifier {
+public class Receipt extends BaseModel {
 
 	private CashRegister cashRegister;
 	private CoffeeType coffeeType;

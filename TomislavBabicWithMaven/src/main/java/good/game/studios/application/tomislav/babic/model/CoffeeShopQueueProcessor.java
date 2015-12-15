@@ -1,7 +1,6 @@
 package good.game.studios.application.tomislav.babic.model;
 
 import good.game.studios.application.tomislav.babic.util.Constants;
-import good.game.studios.application.tomislav.babic.util.Identifier;
 
 import java.text.MessageFormat;
 import java.util.Queue;
@@ -16,7 +15,7 @@ import org.apache.log4j.Logger;
  *
  * @param <T>
  */
-public abstract class CoffeeShopQueueProcessor<T> extends Identifier implements Runnable{
+public abstract class CoffeeShopQueueProcessor<T> extends BaseModel implements Runnable{
 
 	private static final Logger logger = Logger.getLogger(Constants.LOGGER_NAME);
 	

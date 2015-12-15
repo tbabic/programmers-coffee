@@ -1,4 +1,6 @@
-package good.game.studios.application.tomislav.babic.util;
+package good.game.studios.application.tomislav.babic.model;
+
+import good.game.studios.application.tomislav.babic.util.IdGenerator;
 
 
 /**
@@ -7,11 +9,11 @@ package good.game.studios.application.tomislav.babic.util;
  * @author Tomislav Babic
  *
  */
-public abstract class Identifier {
+public abstract class BaseModel {
 	
 	private final int id;
 	
-	public Identifier() {
+	public BaseModel() {
 		id = IdGenerator.getNewId(getClass());
 	}
 	
@@ -36,7 +38,7 @@ public abstract class Identifier {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Identifier other = (Identifier) obj;
+		BaseModel other = (BaseModel) obj;
 		if (id != other.id)
 			return false;
 		return true;
